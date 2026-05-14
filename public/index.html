@@ -57,6 +57,15 @@
       margin: 0 0 14px;
       color: var(--primary);
     }
+    .hero-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .hero-link:hover { opacity: 0.75; }
+    .hero-link:active { opacity: 0.6; }
     .hero .subtitle {
       font-size: 0.98rem;
       line-height: 1.7;
@@ -263,7 +272,9 @@
 <body>
   <main class="container">
     <header class="hero">
-      <h1>토일렛맵</h1>
+      <a href="/" class="hero-link" onclick="event.preventDefault(); location.reload();" aria-label="새로고침">
+        <h1>토일렛맵</h1>
+      </a>
       <p class="subtitle">관악구의 맛집·카페·바 화장실 위치, 청결도 정보를 한눈에.</p>
     </header>
 
