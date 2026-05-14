@@ -4,51 +4,118 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>토일렛맵</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #f5f5f7;
-      color: #1d1d1f;
+    :root {
+      --background: oklch(0.975 0.012 85);
+      --foreground: oklch(0.22 0.025 50);
+      --card: oklch(0.99 0.008 85);
+      --primary: oklch(0.55 0.15 35);
+      --primary-hover: oklch(0.5 0.15 35);
+      --primary-foreground: oklch(0.98 0.01 85);
+      --muted: oklch(0.94 0.015 80);
+      --muted-foreground: oklch(0.5 0.02 60);
+      --border: oklch(0.88 0.02 75);
+      --accent: oklch(0.96 0.04 80);
+      --success: oklch(0.62 0.13 150);
+      --warning: oklch(0.75 0.15 75);
+      --danger: oklch(0.6 0.2 25);
+      --font-display: "Gowun Batang", "Noto Serif KR", serif;
+      --font-sans: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
     }
-    h1 { text-align: center; font-size: 1.4rem; margin-bottom: 4px; }
-    .subtitle { text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 24px; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: var(--font-sans);
+      color: var(--foreground);
+      background-color: var(--background);
+      background-image:
+        radial-gradient(circle at 20% 10%, oklch(0.55 0.15 35 / 0.07), transparent 50%),
+        radial-gradient(circle at 80% 90%, oklch(0.62 0.13 150 / 0.05), transparent 50%);
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+    .hero { margin-bottom: 32px; text-align: left; }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      color: var(--primary);
+    }
+    .hero .subtitle {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--muted-foreground);
+      margin: 0;
+      max-width: 540px;
+    }
+    .chat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 12px 40px -20px oklch(0.55 0.15 35 / 0.18);
+    }
     #chat {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      min-height: 400px;
+      min-height: 380px;
       max-height: 60vh;
       overflow-y: auto;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      margin-bottom: 14px;
       display: flex;
       flex-direction: column;
+      padding: 4px;
     }
     .msg {
-      margin: 4px 0;
-      padding: 6px 12px;
-      border-radius: 12px;
+      margin: 5px 0;
+      padding: 9px 14px;
+      border-radius: 14px;
       max-width: 85%;
       white-space: pre-wrap;
-      line-height: 1.4;
+      line-height: 1.5;
       word-break: break-word;
+      font-size: 0.95rem;
     }
-    .msg.user { background: #007aff; color: white; align-self: flex-end; }
-    .msg.bot { background: #e8e8ed; color: #1d1d1f; align-self: flex-start; }
-    .msg.loading { background: #e8e8ed; align-self: flex-start; }
+    .msg.user {
+      background: var(--primary);
+      color: var(--primary-foreground);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .msg.bot {
+      background: var(--muted);
+      color: var(--foreground);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .msg.loading {
+      background: var(--muted);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
     .shimmer-text {
       font-style: italic;
       background: linear-gradient(
         90deg,
-        #aaa 0%,
-        #aaa 35%,
-        #1d1d1f 50%,
-        #aaa 65%,
-        #aaa 100%
+        oklch(0.5 0.02 60) 0%,
+        oklch(0.5 0.02 60) 35%,
+        var(--foreground) 50%,
+        oklch(0.5 0.02 60) 65%,
+        oklch(0.5 0.02 60) 100%
       );
       background-size: 200% 100%;
       background-clip: text;
@@ -61,67 +128,108 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-    .msg.bot { line-height: 1.45; }
-    .msg.bot .bh { font-weight: 700; font-size: 1.1rem; }
-    .msg.bot .bh.sp { margin-top: 0.6em; }
+    .msg.bot { line-height: 1.55; }
+    .msg.bot .bh {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--foreground);
+    }
+    .msg.bot .bh.sp { margin-top: 0.7em; }
     .msg.bot .bli { padding-left: 0.2em; }
-    .msg.bot .bem { color: #666; font-style: italic; }
-    .msg.bot .bimg { margin: 4px 0; max-width: 100%; display: block; border-radius: 8px; }
-    .msg.bot .prepare-wrap { margin: 4px 0; }
+    .msg.bot .bem {
+      color: var(--muted-foreground);
+      font-style: italic;
+      font-size: 0.85rem;
+      margin-top: 0.4em;
+    }
+    .msg.bot .bimg {
+      margin: 6px 0;
+      max-width: 100%;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .msg.bot .prepare-wrap { margin: 6px 0; }
     .msg.bot .prepare-box {
       display: inline-block;
-      background: #4a4a4a;
-      color: white;
-      padding: 12px 24px;
+      background: var(--accent);
+      color: oklch(0.4 0.1 50);
+      padding: 10px 22px;
       border-radius: 14px;
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 500;
       line-height: 1.2;
+      border: 1px dashed oklch(0.7 0.08 60);
     }
-    .msg.bot .blink { display: block; color: #007aff; text-decoration: none; }
-    .msg.bot .blink.sp { margin-top: 0.6em; }
+    .msg.bot .blink {
+      display: block;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .msg.bot .blink.sp { margin-top: 0.7em; }
     .msg.bot .blink:hover { text-decoration: underline; }
+
     form { display: flex; gap: 8px; }
     .input-wrap { position: relative; flex: 1; display: flex; }
     .input-wrap input {
       flex: 1;
       width: 100%;
-      padding: 12px 56px 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #d0d0d5;
+      padding: 13px 60px 13px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
       font-size: 1rem;
       font-family: inherit;
+      background: var(--card);
+      color: var(--foreground);
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .input-wrap input:focus { outline: none; border-color: #007aff; }
+    .input-wrap input::placeholder { color: oklch(0.6 0.02 60); }
+    .input-wrap input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px oklch(0.55 0.15 35 / 0.12);
+    }
     .char-counter {
       position: absolute;
-      right: 12px;
+      right: 14px;
       top: 50%;
       transform: translateY(-50%);
       font-size: 0.78rem;
-      color: #999;
+      color: var(--muted-foreground);
       pointer-events: none;
       user-select: none;
       font-variant-numeric: tabular-nums;
     }
-    .char-counter.warn { color: #ff9500; }
-    .char-counter.max { color: #ff3b30; font-weight: 600; }
+    .char-counter.warn { color: var(--warning); }
+    .char-counter.max { color: var(--danger); font-weight: 600; }
     form > button {
-      padding: 12px 20px;
-      background: #007aff;
-      color: white;
+      padding: 13px 24px;
+      background: var(--primary);
+      color: var(--primary-foreground);
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 1rem;
+      font-weight: 500;
       cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, transform 0.05s;
     }
-    form > button:disabled { background: #999; cursor: not-allowed; }
+    form > button:hover:not(:disabled) { background: var(--primary-hover); }
+    form > button:active:not(:disabled) { transform: translateY(1px); }
+    form > button:disabled {
+      background: oklch(0.75 0.04 60);
+      cursor: not-allowed;
+    }
+
     .msg-wrap {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
       gap: 6px;
-      margin: 4px 0;
+      margin: 5px 0;
       align-self: flex-start;
       max-width: 95%;
     }
@@ -130,35 +238,49 @@
       flex-shrink: 0;
       align-self: flex-start;
       margin-top: 6px;
-      padding: 4px 10px;
-      background: white;
-      color: #666;
-      border: 1px solid #d0d0d5;
-      border-radius: 8px;
+      padding: 5px 12px;
+      background: var(--card);
+      color: var(--muted-foreground);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       font-size: 0.8rem;
       cursor: pointer;
       font-family: inherit;
       transition: all 0.15s;
     }
-    .copy-btn:hover { background: #f5f5f7; color: #1d1d1f; }
-    .copy-btn.copied { background: #34c759; color: white; border-color: #34c759; }
+    .copy-btn:hover {
+      background: var(--accent);
+      color: var(--foreground);
+      border-color: oklch(0.78 0.06 70);
+    }
+    .copy-btn.copied {
+      background: var(--success);
+      color: var(--primary-foreground);
+      border-color: var(--success);
+    }
   </style>
 </head>
 <body>
-  <h1>토일렛맵</h1>
-  <p class="subtitle">맛집·카페·술집 매장명을 검색하세요</p>
+  <main class="container">
+    <header class="hero">
+      <h1>토일렛맵</h1>
+      <p class="subtitle">관악구의 맛집·카페·바 화장실 위치, 청결도 정보를 한눈에.</p>
+    </header>
 
-  <div id="chat">
-    <div class="msg bot">매장명 검색해봐~ 관악구 핫플레이스 화장실 정보 알려줄게! 🚻</div>
-  </div>
+    <section class="chat-card">
+      <div id="chat">
+        <div class="msg bot">매장명 검색해봐~ 관악구 핫플레이스 화장실 정보 알려줄게! 🚻</div>
+      </div>
 
-  <form id="form">
-    <div class="input-wrap">
-      <input id="input" type="text" placeholder="매장명 입력 (예: 왓어원더)" autocomplete="off" maxlength="30" required />
-      <span id="charCounter" class="char-counter">0/30</span>
-    </div>
-    <button type="submit" id="sendBtn">검색</button>
-  </form>
+      <form id="form">
+        <div class="input-wrap">
+          <input id="input" type="text" placeholder="매장명 입력 (예: 왓어원더)" autocomplete="off" maxlength="30" required />
+          <span id="charCounter" class="char-counter">0/30</span>
+        </div>
+        <button type="submit" id="sendBtn">검색</button>
+      </form>
+    </section>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
@@ -308,7 +430,7 @@
       if (!isValidStoreName(text)) {
         addMsg(text, "user");
         input.value = "";
-      updateCharCounter();
+        updateCharCounter();
         await sleep(200);
         addMsg("음... 매장명 너무 짧아! 2글자 이상으로 입력해줘~", "bot");
         input.focus();
@@ -344,10 +466,10 @@
           const btn = document.createElement("button");
           btn.textContent = "다시 찾기";
           btn.style.cssText =
-            "margin-top: 8px; padding: 6px 14px; background: #007aff; color: white; border: none; border-radius: 8px; font-size: 0.9rem; cursor: pointer;";
+            "margin-top: 8px; padding: 6px 14px; background: var(--primary); color: var(--primary-foreground); border: none; border-radius: 8px; font-size: 0.9rem; cursor: pointer; font-family: inherit;";
           btn.onclick = () => {
             input.value = "";
-      updateCharCounter();
+            updateCharCounter();
             input.focus();
           };
           msg.appendChild(document.createElement("br"));
