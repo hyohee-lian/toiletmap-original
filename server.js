@@ -1,6 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
 import "dotenv/config";
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const client = new Anthropic();
 const app = express();
@@ -221,7 +225,7 @@ function formatStoreInfo(docs) {
 }
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 function isValidStoreName(text) {
   if (!text || typeof text !== "string") return false;
