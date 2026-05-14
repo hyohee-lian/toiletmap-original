@@ -25,7 +25,14 @@
       "Bash(curl -s -H \"Authorization: KakaoAK 7d79f5945340e0f595bf9efc867c6a06\" \"https://dapi.kakao.com/v2/local/search/keyword.json?query=%E3%85%87&size=15\")",
       "Bash(python3 -c ' *)",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git clone *)",
+      "Bash(git push *)",
+      "Bash(gh --version)",
+      "Bash(brew --version)"
     ]
   }
 }
