@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm init *)",
+      "Read(//usr/local/**)",
+      "Read(//opt/homebrew/**)",
+      "Bash(command -v node)",
+      "Read(//Users/ihyohui/.nvm/versions/node/**)",
+      "Read(//Users/ihyohui/.volta/**)",
+      "Bash(/bin/ls /usr/local/bin/npm)",
+      "Read(//Users/ihyohui/.nvm/**)",
+      "Read(//Users/ihyohui/**)",
+      "Bash(node hello_test.js)",
+      "Bash(/Users/ihyohui/.nvm/versions/node/v24.15.0/bin/node hello_test.js)",
+      "Bash(/Users/ihyohui/.nvm/versions/node/v24.15.0/bin/node hello-test.js)",
+      "Bash(node hello-test.js)",
+      "Bash(awk -F'=' '/ANTHROPIC_API_KEY/ {print length\\($2\\)}' .env)",
+      "Bash(awk -F'=' '/ANTHROPIC_API_KEY/ {key=$2; print \"앞 15자:\", substr\\(key,1,15\\); print \"뒤 5자:\", substr\\(key,length\\(key\\)-4\\); print \"따옴표 포함?:\", \\(key ~ /[\"'\\\\'']/\\) ? \"YES\" : \"NO\"; print \"공백/줄바꿈?:\", \\(key ~ /[ \\\\t\\\\r\\\\n]/\\) ? \"YES\" : \"NO\"}' .env)",
+      "Bash(grep -E \"\\\\.js$\")",
+      "Bash(curl -s -w \"\\\\nHTTP_STATUS:%{http_code}\\\\n\" -H \"Authorization: KakaoAK 7d79f5945340e0f595bf9efc867c6a06\" \"https://dapi.kakao.com/v2/local/search/keyword.json?query=%EC%99%93%EC%96%B4%EC%9B%90%EB%8D%94&size=3\")",
+      "Bash(curl -s -w \"\\\\nHTTP_STATUS:%{http_code}\\\\n\" -H \"Authorization: KakaoAK 7d79f5945340e0f595bf9efc867c6a06\" \"https://dapi.kakao.com/v2/local/search/keyword.json?query=%EC%99%93%EC%96%B4%EC%9B%90%EB%8D%94&size=2\")",
+      "Bash(xargs kill -9)",
+      "Bash(curl -s -H \"Authorization: KakaoAK 7d79f5945340e0f595bf9efc867c6a06\" \"https://dapi.kakao.com/v2/local/search/keyword.json?query=%EC%B4%88%EC%9D%B4%EA%B3%A0%EC%95%BC&size=5\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s -H \"Authorization: KakaoAK 7d79f5945340e0f595bf9efc867c6a06\" \"https://dapi.kakao.com/v2/local/search/keyword.json?query=%E3%85%87&size=15\")",
+      "Bash(python3 -c ' *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
